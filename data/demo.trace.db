@@ -1,0 +1,24 @@
+2022-06-17 12:33:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+insert into guest (id, account_type, email, password, phone_number, dtype) values (null, ?, ?, ?, ?, 'Guest') [42102-200]
+2022-06-17 12:33:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+insert into guest (id, account_type, email, password, phone_number, dtype) values (null, ?, ?, ?, ?, 'Guest') [42102-200]
+2022-06-17 12:34:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+select guest0_.id as id2_0_0_, guest0_.account_type as account_3_0_0_, guest0_.email as email4_0_0_, guest0_.password as password5_0_0_, guest0_.phone_number as phone_nu6_0_0_, guest0_.card_number as card_num7_0_0_, guest0_.first_name as first_na8_0_0_, guest0_.is_premium as is_premi9_0_0_, guest0_.last_name as last_na10_0_0_, guest0_.wallet_balance as wallet_11_0_0_, guest0_.dtype as dtype1_0_0_ from guest guest0_ where guest0_.id=? [42102-200]
+2022-06-17 12:34:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+insert into guest (id, account_type, email, password, phone_number, dtype) values (null, ?, ?, ?, ?, 'Guest') [42102-200]
+2022-06-17 12:35:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+select guest0_.id as id2_0_0_, guest0_.account_type as account_3_0_0_, guest0_.email as email4_0_0_, guest0_.password as password5_0_0_, guest0_.phone_number as phone_nu6_0_0_, guest0_.card_number as card_num7_0_0_, guest0_.first_name as first_na8_0_0_, guest0_.is_premium as is_premi9_0_0_, guest0_.last_name as last_na10_0_0_, guest0_.wallet_balance as wallet_11_0_0_, guest0_.dtype as dtype1_0_0_ from guest guest0_ where guest0_.id=? [42102-200]
+2022-06-17 12:35:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+insert into guest (id, account_type, email, password, phone_number, dtype) values (null, ?, ?, ?, ?, 'Guest') [42102-200]
+2022-06-17 17:05:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+select guest0_.id as id2_0_0_, guest0_.account_type as account_3_0_0_, guest0_.email as email4_0_0_, guest0_.password as password5_0_0_, guest0_.phone_number as phone_nu6_0_0_, guest0_.card_number as card_num7_0_0_, guest0_.first_name as first_na8_0_0_, guest0_.is_premium as is_premi9_0_0_, guest0_.last_name as last_na10_0_0_, guest0_.wallet_balance as wallet_11_0_0_, guest0_.dtype as dtype1_0_0_ from guest guest0_ where guest0_.id=? [42102-200]
+2022-06-17 17:05:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "GUEST" not found; SQL statement:
+select guest0_.id as id2_0_, guest0_.account_type as account_3_0_, guest0_.email as email4_0_, guest0_.password as password5_0_, guest0_.phone_number as phone_nu6_0_, guest0_.card_number as card_num7_0_, guest0_.first_name as first_na8_0_, guest0_.is_premium as is_premi9_0_, guest0_.last_name as last_na10_0_, guest0_.wallet_balance as wallet_11_0_, guest0_.dtype as dtype1_0_ from guest guest0_ [42102-200]
