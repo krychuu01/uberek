@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
+import pl.uberek.ubereats.client.dtos.ClientUpdateDto;
 
 import java.util.List;
 
@@ -18,39 +19,39 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+//    @PostMapping("/clients")
+//    public ResponseEntity<List<ClientDto>> createClients(@RequestBody List<ClientCreateDto> clientCreateDto){
+//        List<ClientDto> clients = clientService.createClients(clientCreateDto);
+//        return ResponseEntity.ok(clients);
+//    }
+
+    @PostMapping("/clients")
+    public ResponseEntity<ClientDto> createClient(@RequestBody ClientCreateDto clientCreateDto){
+        ClientDto clientDto = clientService.createClient(clientCreateDto);
+        return ResponseEntity.ok(clientDto);
+    }
+
     @GetMapping("/clients/{id}")
-    public ResponseEntity<ClientDto> getById(@PathVariable Long id){return ResponseEntity.ok(clientService.findById(id));}
+    public ResponseEntity<ClientDto> getClientById(@PathVariable Long id){return ResponseEntity.ok(clientService.findById(id));}
 
     @GetMapping("/clients")
-    public ResponseEntity<List<ClientDto>> getClients(){
+    public ResponseEntity<List<ClientDto>> getAllClients(){
         return ResponseEntity.ok(clientService.findAll());
     }
 
     @GetMapping("/clients-premium")
-    public ResponseEntity<List<ClientDto>> getPremiumClients(){ return ResponseEntity.ok(clientService.findAllPremiumClients()); }
+    public ResponseEntity<List<ClientDto>> getAllPremiumClients(){ return ResponseEntity.ok(clientService.findAllPremiumClients()); }
 
-    @PostMapping("/clients")
-    public ResponseEntity<List<ClientDto>> saveClients(@RequestBody List<ClientCreateDto> clientCreateDto){
-        List<ClientDto> clients = clientService.save(clientCreateDto);
-        return ResponseEntity.ok(clients);
-    }
-
-    @PutMapping("/clients/{id}")
-    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientCreateDto clientDto){
-        ClientDto client = clientService.update(clientDto, id);
-        return ResponseEntity.ok(client);
-    }
-
-    @PatchMapping("/clients/{id}/email-change")
-    public ResponseEntity<ClientDto> changeClientEmail(@PathVariable Long id, @RequestBody String newEmail){
-        ClientDto client = clientService.changeEmail(id, newEmail);
+    @PatchMapping("/clients/{id}")
+    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientUpdateDto clientUpdateDto){
+        ClientDto client = clientService.update(id, clientUpdateDto);
         return ResponseEntity.ok(client);
     }
 
     @DeleteMapping("/clients/{id}")
     public ResponseEntity deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
-        return ResponseEntity.ok().body("Client with id " + id + "successfully deleted");
+        return ResponseEntity.ok().body("Client with id " + id + " successfully deleted");
     }
 
 }

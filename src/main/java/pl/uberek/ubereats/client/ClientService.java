@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
+import pl.uberek.ubereats.client.dtos.ClientUpdateDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,24 @@ public class ClientService {
     public ClientService(ClientRepository clientRepository, ClientMapper clientMapper){
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
+    }
+
+//    public List<ClientDto> createClients(List<ClientCreateDto> clientCreateDtoList){
+//        List<Client> listOfClients = new ArrayList<>(clientCreateDtoList.size());
+//
+//        for (ClientCreateDto clientcreateDto : clientCreateDtoList) {
+//            Client mappedClient = clientMapper.fromClientCreateDtoToClient(clientcreateDto);
+//            clientRepository.save(mappedClient);
+//            listOfClients.add(mappedClient);
+//        }
+//
+//        return clientMapper.fromClientListToClientDtoList(listOfClients);
+//    }
+
+    public ClientDto createClient(ClientCreateDto clientCreateDto) {
+        Client client = clientMapper.fromClientCreateDtoToClient(clientCreateDto);
+        clientRepository.save(client);
+        return clientMapper.fromClientToClientDto(client);
     }
 
     public Client findClientById(Long id){
@@ -43,34 +62,15 @@ public class ClientService {
         return clientMapper.fromClientListToClientDtoList(clients);
     }
 
-    public List<ClientDto> save(List<ClientCreateDto> clientCreateDtoList){
-        List<Client> listOfClients = new ArrayList<>(clientCreateDtoList.size());
-
-        for (ClientCreateDto clientcreateDto : clientCreateDtoList) {
-            Client mappedClient = clientMapper.fromClientCreateDtoToClient(clientcreateDto);
-            clientRepository.save(mappedClient);
-            listOfClients.add(mappedClient);
-        }
-
-        return clientMapper.fromClientListToClientDtoList(listOfClients);
-    }
-
-    public ClientDto update(ClientCreateDto clientCreateDto, Long id) {
+    public ClientDto update(Long id, ClientUpdateDto clientUpdateDto) {
         Client client = findClientById(id);
-        client.setEmail(clientCreateDto.email());
-        client.setFirstName(clientCreateDto.firstName());
-        client.setLastName(clientCreateDto.lastName());
-        client.setPassword(clientCreateDto.password());
-        client.setPhoneNumber(clientCreateDto.phoneNumber());
-        client.setIsPremium(clientCreateDto.isPremium());
 
-        clientRepository.save(client);
-        return clientMapper.fromClientToClientDto(client);
-    }
-
-    public ClientDto changeEmail(Long id, String newEmail) {
-        Client client = findClientById(id);
-        client.setEmail(newEmail);
+        if(clientUpdateDto.email() != null) client.setEmail(clientUpdateDto.email());
+        if(clientUpdateDto.isPremium() != null) client.setIsPremium(clientUpdateDto.isPremium());
+        if(clientUpdateDto.firstName() != null) client.setFirstName(clientUpdateDto.firstName());
+        if(clientUpdateDto.lastName() != null) client.setLastName(clientUpdateDto.lastName());
+        if(clientUpdateDto.password() != null) client.setPassword(clientUpdateDto.password());
+        if(clientUpdateDto.phoneNumber() != null) client.setPhoneNumber(clientUpdateDto.phoneNumber());
 
         clientRepository.save(client);
         return clientMapper.fromClientToClientDto(client);

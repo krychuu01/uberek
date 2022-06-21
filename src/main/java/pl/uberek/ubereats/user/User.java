@@ -1,5 +1,6 @@
 package pl.uberek.ubereats.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,8 +22,9 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Address address;
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
@@ -32,6 +34,13 @@ public abstract class User {
     public User(String email, Address address, AccountType accountType, String password, String phoneNumber) {
         this.email = email;
         this.address = address;
+        this.accountType = accountType;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(String email, AccountType accountType, String password, String phoneNumber) {
+        this.email = email;
         this.accountType = accountType;
         this.password = password;
         this.phoneNumber = phoneNumber;

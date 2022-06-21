@@ -36,6 +36,15 @@ public class Client extends User {
         this.walletBalance = walletBalance;
     }
 
+    public Client(String email, AccountType accountType, String password, String phoneNumber, String firstName, String lastName, String cardNumber, Boolean isPremium, BigDecimal walletBalance) {
+        super(email, accountType, password, phoneNumber);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cardNumber = cardNumber;
+        this.isPremium = isPremium;
+        this.walletBalance = walletBalance;
+    }
+
 }
 
 
