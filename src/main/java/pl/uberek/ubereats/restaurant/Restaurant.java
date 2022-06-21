@@ -1,9 +1,12 @@
 package pl.uberek.ubereats.restaurant;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import pl.uberek.ubereats.enums.RestaurantType;
-import pl.uberek.ubereats.guest.Guest;
+import pl.uberek.ubereats.user.User;
 import pl.uberek.ubereats.menu.Menu;
 
 import javax.persistence.*;
@@ -16,7 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "restaurants")
-public class Restaurant extends Guest {
+public class Restaurant extends User {
 
     private String name;
     @OneToOne
