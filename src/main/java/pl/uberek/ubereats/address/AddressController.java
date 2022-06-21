@@ -1,5 +1,6 @@
 package pl.uberek.ubereats.address;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.uberek.ubereats.address.dtos.AddressDto;
@@ -11,6 +12,7 @@ public class AddressController {
 
     private final AddressService addressService;
 
+    @Autowired
     public AddressController(AddressService addressService){
         this.addressService = addressService;
     }
@@ -23,11 +25,6 @@ public class AddressController {
     @GetMapping("/addresses/{id}")
     public ResponseEntity<Address> getAddressById(@PathVariable Long id){
         return ResponseEntity.ok(addressService.findById(id));
-    }
-
-    @PostMapping("/addresses")
-    public ResponseEntity<Address> createAddress(@RequestBody AddressDto address){
-        return ResponseEntity.ok(addressService.createAddress(address));
     }
 
     @PatchMapping("/addresses/{id}")

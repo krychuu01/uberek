@@ -29,11 +29,6 @@ public class AddressService {
                 .orElseThrow(() -> new NoSuchElementException("address with id " + id + " not found"));
     }
 
-    public Address createAddress(AddressDto addressDto) {
-        Address address = addressMapper.fromAddressCreateDtoToAddress(addressDto);
-        return addressRepository.save(address);
-    }
-
     public AddressDto updateAddress(Long id, AddressDto addressDto) {
         Address address = findById(id);
 
