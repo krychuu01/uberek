@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
-import pl.uberek.ubereats.client.dtos.ClientUpdateDto;
 
 import java.util.List;
 
@@ -42,14 +41,8 @@ public class ClientController {
     @GetMapping("/clients-premium")
     public ResponseEntity<List<ClientDto>> getAllPremiumClients(){ return ResponseEntity.ok(clientService.findAllPremiumClients()); }
 
-    @PatchMapping("/clients/{id}")
-    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientUpdateDto clientUpdateDto){
-        ClientDto client = clientService.update(id, clientUpdateDto);
-        return ResponseEntity.ok(client);
-    }
-
     @DeleteMapping("/clients/{id}")
-    public ResponseEntity deleteClient(@PathVariable Long id){
+    public ResponseEntity<String> deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
         return ResponseEntity.ok().body("Client with id " + id + " successfully deleted");
     }

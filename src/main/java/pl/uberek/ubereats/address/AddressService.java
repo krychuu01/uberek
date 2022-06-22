@@ -30,15 +30,15 @@ public class AddressService {
     }
 
     public AddressDto updateAddress(Long id, AddressDto addressDto) {
-        Address address = findById(id);
+        Address addressToUpdate = findById(id);
 
-        if (addressDto.city() != null) address.setCity(addressDto.city());
-        if (addressDto.country() != null) address.setCountry(addressDto.country());
-        if (addressDto.street() != null) address.setStreet(addressDto.street());
-        if (addressDto.zip_code() != null) address.setZip_code(addressDto.zip_code());
+        if (addressDto.city() != null) addressToUpdate.setCity(addressDto.city());
+        if (addressDto.country() != null) addressToUpdate.setCountry(addressDto.country());
+        if (addressDto.street() != null) addressToUpdate.setStreet(addressDto.street());
+        if (addressDto.zip_code() != null) addressToUpdate.setZip_code(addressDto.zip_code());
 
-        addressRepository.save(address);
-        return addressMapper.fromAddressToAddressDto(address);
+        addressRepository.save(addressToUpdate);
+        return addressMapper.fromAddressToAddressDto(addressToUpdate);
     }
 
 }

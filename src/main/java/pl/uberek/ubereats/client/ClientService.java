@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
-import pl.uberek.ubereats.client.dtos.ClientUpdateDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -60,20 +58,6 @@ public class ClientService {
     public List<ClientDto> findAllPremiumClients(){
         List<Client> clients = clientRepository.findByIsPremiumTrue();
         return clientMapper.fromClientListToClientDtoList(clients);
-    }
-
-    public ClientDto update(Long id, ClientUpdateDto clientUpdateDto) {
-        Client client = findClientById(id);
-
-        if(clientUpdateDto.email() != null) client.setEmail(clientUpdateDto.email());
-        if(clientUpdateDto.isPremium() != null) client.setIsPremium(clientUpdateDto.isPremium());
-        if(clientUpdateDto.firstName() != null) client.setFirstName(clientUpdateDto.firstName());
-        if(clientUpdateDto.lastName() != null) client.setLastName(clientUpdateDto.lastName());
-        if(clientUpdateDto.password() != null) client.setPassword(clientUpdateDto.password());
-        if(clientUpdateDto.phoneNumber() != null) client.setPhoneNumber(clientUpdateDto.phoneNumber());
-
-        clientRepository.save(client);
-        return clientMapper.fromClientToClientDto(client);
     }
 
     public void deleteClient(Long id) {

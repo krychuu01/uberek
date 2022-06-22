@@ -1,17 +1,20 @@
 package pl.uberek.ubereats.restaurant;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pl.uberek.ubereats.address.Address;
+import pl.uberek.ubereats.dish.Dish;
+import pl.uberek.ubereats.enums.AccountType;
 import pl.uberek.ubereats.enums.RestaurantType;
 import pl.uberek.ubereats.user.User;
-import pl.uberek.ubereats.menu.Menu;
 
 import javax.persistence.*;
-import java.util.Objects;
-
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,25 +25,19 @@ import java.util.Objects;
 public class Restaurant extends User {
 
     private String name;
-    @OneToOne
-    @JoinColumn(name = "menu_id", referencedColumnName = "id")
-    private Menu menu;
-    private double rating;
+    private Double rating;
     @Enumerated(EnumType.STRING)
     private RestaurantType restaurantType;
+    @OneToMany(mappedBy = "id")
+    @JsonManagedReference
+    private Set<Dish> dishes;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Restaurant)) return false;
-        if (!super.equals(o)) return false;
-        Restaurant that = (Restaurant) o;
-        return Double.compare(that.rating, rating) == 0 && name.equals(that.name) && menu.equals(that.menu) && restaurantType == that.restaurantType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, menu, rating, restaurantType);
+    public Restaurant(String email, Address address, AccountType accountType, String password, String phoneNumber, String name, Double rating, RestaurantType restaurantType, Set<Dish> dishes) {
+        super(email, address, accountType, password, phoneNumber);
+        this.name = name;
+        this.rating = rating;
+        this.restaurantType = restaurantType;
+        this.dishes = dishes;
     }
 
 }

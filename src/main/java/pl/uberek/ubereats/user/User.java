@@ -1,6 +1,7 @@
 package pl.uberek.ubereats.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import pl.uberek.ubereats.address.Address;
 import pl.uberek.ubereats.enums.AccountType;
 
 import javax.persistence.*;
+import java.lang.annotation.ElementType;
 
 @Getter
 @Setter
@@ -23,7 +25,7 @@ public abstract class User {
     private Long id;
     private String email;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     @JsonManagedReference
     private Address address;
     @Enumerated(EnumType.STRING)
@@ -34,13 +36,6 @@ public abstract class User {
     public User(String email, Address address, AccountType accountType, String password, String phoneNumber) {
         this.email = email;
         this.address = address;
-        this.accountType = accountType;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public User(String email, AccountType accountType, String password, String phoneNumber) {
-        this.email = email;
         this.accountType = accountType;
         this.password = password;
         this.phoneNumber = phoneNumber;

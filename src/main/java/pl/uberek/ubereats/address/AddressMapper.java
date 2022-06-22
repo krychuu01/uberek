@@ -11,9 +11,4 @@ public class AddressMapper {
                                     address.getStreet(), address.getCountry());
     }
 
-    public Address fromAddressCreateDtoToAddress(AddressDto addressDto){
-        return new Address(addressDto.zip_code(), addressDto.city(),
-                            addressDto.street(), addressDto.country());
-    };
-
 }
