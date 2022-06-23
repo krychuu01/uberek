@@ -18,12 +18,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-//    @PostMapping("/clients")
-//    public ResponseEntity<List<ClientDto>> createClients(@RequestBody List<ClientCreateDto> clientCreateDto){
-//        List<ClientDto> clients = clientService.createClients(clientCreateDto);
-//        return ResponseEntity.ok(clients);
-//    }
-
     @PostMapping("/clients")
     public ResponseEntity<ClientDto> createClient(@RequestBody ClientCreateDto clientCreateDto){
         ClientDto clientDto = clientService.createClient(clientCreateDto);

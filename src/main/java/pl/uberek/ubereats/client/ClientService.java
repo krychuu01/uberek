@@ -22,27 +22,16 @@ public class ClientService {
         this.clientMapper = clientMapper;
     }
 
-//    public List<ClientDto> createClients(List<ClientCreateDto> clientCreateDtoList){
-//        List<Client> listOfClients = new ArrayList<>(clientCreateDtoList.size());
-//
-//        for (ClientCreateDto clientcreateDto : clientCreateDtoList) {
-//            Client mappedClient = clientMapper.fromClientCreateDtoToClient(clientcreateDto);
-//            clientRepository.save(mappedClient);
-//            listOfClients.add(mappedClient);
-//        }
-//
-//        return clientMapper.fromClientListToClientDtoList(listOfClients);
-//    }
-
     public ClientDto createClient(ClientCreateDto clientCreateDto) {
         Client client = clientMapper.fromClientCreateDtoToClient(clientCreateDto);
+        if(client.getAddress() == null) throw new NullPointerException("Address mustn't be null");
         clientRepository.save(client);
         return clientMapper.fromClientToClientDto(client);
     }
 
     public Client findClientById(Long id){
         return clientRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("guest with id: " + id + " not found"));
+                .orElseThrow(() -> new NoSuchElementException("client with id: " + id + " not found"));
     }
 
     public ClientDto findById(Long id){
