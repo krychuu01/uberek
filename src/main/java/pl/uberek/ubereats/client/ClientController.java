@@ -3,6 +3,7 @@ package pl.uberek.ubereats.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.uberek.ubereats.client.dtos.ClientAddressDto;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
 
@@ -34,6 +35,11 @@ public class ClientController {
 
     @GetMapping("/clients-premium")
     public ResponseEntity<List<ClientDto>> getAllPremiumClients(){ return ResponseEntity.ok(clientService.findAllPremiumClients()); }
+
+    @GetMapping("/clients-with-address/{id}")
+    public ResponseEntity<ClientAddressDto> getClientAndHisAddress(@PathVariable Long id){
+        return ResponseEntity.ok(clientService.findClientAndHisAddress(id));
+    }
 
     @DeleteMapping("/clients/{id}")
     public ResponseEntity<String> deleteClient(@PathVariable Long id){

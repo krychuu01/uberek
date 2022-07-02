@@ -24,7 +24,6 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Embedded
-    @AttributeOverride(name = "email", column = @Column(name = "email"))
     private Email email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
@@ -34,7 +33,6 @@ public abstract class User {
     private AccountType accountType;
     private String password;
     @Embedded
-    @AttributeOverride(name = "phoneNumber", column = @Column(name = "phoneNumber"))
     private PhoneNumber phoneNumber;
 
     public User(Email email, Address address, AccountType accountType, String password, PhoneNumber phoneNumber) {

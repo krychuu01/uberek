@@ -24,12 +24,12 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id){
-        User user = findUserById(id);
+        var user = findUserById(id);
         return UserMapper.fromUserToUserDto(user);
     }
 
     public List<UserDto> getUsers() {
-        List<User> users = userRepository.findAll();
+        var users = userRepository.findAll();
         return UserMapper.fromUserListToUserDtoList(users);
     }
 

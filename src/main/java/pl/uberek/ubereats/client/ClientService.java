@@ -3,14 +3,14 @@ package pl.uberek.ubereats.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import pl.uberek.ubereats.client.dtos.ClientAddressDto;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static pl.uberek.ubereats.client.ClientMapper.fromClientListToClientDtoList;
-import static pl.uberek.ubereats.client.ClientMapper.fromClientToClientDto;
+import static pl.uberek.ubereats.client.ClientMapper.*;
 
 @Component
 @Service
@@ -48,6 +48,12 @@ public class ClientService {
     public List<ClientDto> findAllPremiumClients(){
         List<Client> clients = clientRepository.findByIsPremiumTrue();
         return fromClientListToClientDtoList(clients);
+    }
+
+    public ClientAddressDto findClientAndHisAddress(Long id){
+        var client = clientRepository.getClientAndHisAddress(id)
+                .orElseThrow(() -> new NoSuchElementException("client with id: " + id + " not found"));
+        return fromClientToClientAddressDto(client);
     }
 
     public void deleteClient(Long id) {
