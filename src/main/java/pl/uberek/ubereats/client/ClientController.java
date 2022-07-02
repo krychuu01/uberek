@@ -1,6 +1,7 @@
 package pl.uberek.ubereats.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.uberek.ubereats.client.dtos.ClientAddressDto;
@@ -10,6 +11,7 @@ import pl.uberek.ubereats.client.dtos.ClientDto;
 import java.util.List;
 
 @RestController
+@RequestMapping("/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -19,29 +21,30 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @PostMapping("/clients")
-    public ResponseEntity<ClientDto> createClient(@RequestBody ClientCreateDto clientCreateDto){
-        ClientDto clientDto = clientService.createClient(clientCreateDto);
-        return ResponseEntity.ok(clientDto);
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public ClientDto createClient(@RequestBody ClientCreateDto clientCreateDto){
+        return clientService.createClient(clientCreateDto);
     }
 
-    @GetMapping("/clients/{id}")
-    public ResponseEntity<ClientDto> getClientById(@PathVariable Long id){return ResponseEntity.ok(clientService.findById(id));}
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ClientDto getClientById(@PathVariable Long id){return clientService.findById(id);}
 
-    @GetMapping("/clients")
+    @GetMapping("")
     public ResponseEntity<List<ClientDto>> getAllClients(){
         return ResponseEntity.ok(clientService.findAll());
     }
 
-    @GetMapping("/clients-premium")
+    @GetMapping("/premium")
     public ResponseEntity<List<ClientDto>> getAllPremiumClients(){ return ResponseEntity.ok(clientService.findAllPremiumClients()); }
 
-    @GetMapping("/clients-with-address/{id}")
-    public ResponseEntity<ClientAddressDto> getClientAndHisAddress(@PathVariable Long id){
+    @GetMapping("/with-address/{id}")
+    public ResponseEntity<Object> getClientAndHisAddress(@PathVariable Long id){
         return ResponseEntity.ok(clientService.findClientAndHisAddress(id));
     }
 
-    @DeleteMapping("/clients/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
         return ResponseEntity.ok().body("Client with id " + id + " successfully deleted");

@@ -1,26 +1,26 @@
 package pl.uberek.ubereats.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.uberek.ubereats.client.dtos.ClientAddressDto;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static pl.uberek.ubereats.client.ClientMapper.*;
 
-@Component
 @Service
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final EntityManager em;
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository){
+    public ClientService(ClientRepository clientRepository, EntityManager em){
         this.clientRepository = clientRepository;
+        this.em = em;
     }
 
     public ClientDto createClient(ClientCreateDto clientCreateDto) {
@@ -51,9 +51,12 @@ public class ClientService {
     }
 
     public ClientAddressDto findClientAndHisAddress(Long id){
-        var client = clientRepository.getClientAndHisAddress(id)
-                .orElseThrow(() -> new NoSuchElementException("client with id: " + id + " not found"));
-        return fromClientToClientAddressDto(client);
+        Query q = em.createQuery("SELECT new pl.uberek.ubereats.client.dtos.ClientAddressDto(c.firstName, c.lastName, a.city, a.street)" +
+                " FROM Client AS c " +
+                " INNER JOIN pl.uberek.ubereats.address.Address AS a ON c.address = a.id " +
+                " WHERE c.id = ?1 ");
+        q.setParameter(1, 1L);
+        return (ClientAddressDto) q.getSingleResult();
     }
 
     public void deleteClient(Long id) {

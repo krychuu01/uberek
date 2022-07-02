@@ -8,16 +8,16 @@ import pl.uberek.ubereats.address.dtos.AddressDto;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static pl.uberek.ubereats.address.AddressMapper.fromAddressToAddressDto;
+
 @Service
 public class AddressService {
 
     private final AddressRepository addressRepository;
-    private final AddressMapper addressMapper;
 
     @Autowired
-    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper){
+    public AddressService(AddressRepository addressRepository){
         this.addressRepository = addressRepository;
-        this.addressMapper = addressMapper;
     }
 
     public List<Address> findAll() {
@@ -38,7 +38,7 @@ public class AddressService {
         if (addressDto.zip_code() != null) addressToUpdate.setZip_code(addressDto.zip_code());
 
         addressRepository.save(addressToUpdate);
-        return addressMapper.fromAddressToAddressDto(addressToUpdate);
+        return fromAddressToAddressDto(addressToUpdate);
     }
 
 }

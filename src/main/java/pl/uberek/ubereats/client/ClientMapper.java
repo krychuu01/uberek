@@ -1,6 +1,5 @@
 package pl.uberek.ubereats.client;
 
-import org.springframework.stereotype.Component;
 import pl.uberek.ubereats.client.dtos.ClientAddressDto;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
@@ -9,7 +8,6 @@ import pl.uberek.ubereats.enums.AccountType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class ClientMapper {
 
     public static ClientDto fromClientToClientDto(Client client){

@@ -7,6 +7,7 @@ import pl.uberek.ubereats.user.User;
 import pl.uberek.ubereats.user.value_objects.Email;
 import pl.uberek.ubereats.user.value_objects.PhoneNumber;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;

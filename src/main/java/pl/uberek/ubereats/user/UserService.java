@@ -3,7 +3,6 @@ package pl.uberek.ubereats.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.uberek.ubereats.user.dtos.UserDto;
-import pl.uberek.ubereats.user.dtos.UserMapper;
 
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -1,16 +1,14 @@
-package pl.uberek.ubereats.user.dtos;
+package pl.uberek.ubereats.user;
 
-import org.springframework.stereotype.Component;
-import pl.uberek.ubereats.user.User;
+import pl.uberek.ubereats.user.dtos.UserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class UserMapper {
 
     public static UserDto fromUserToUserDto(User user){
-        return new UserDto.UserDtoBuilder()
+        return UserDto.builder()
                 .email(user.getEmail())
                 .address(user.getAddress())
                 .accountType(user.getAccountType())
