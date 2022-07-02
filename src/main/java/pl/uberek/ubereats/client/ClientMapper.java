@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
 import pl.uberek.ubereats.enums.AccountType;
+import pl.uberek.ubereats.user.value_objects.Email;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ClientMapper {
     }
 
     public Client fromClientCreateDtoToClient(ClientCreateDto clientCreateDto){
-        return new Client(clientCreateDto.email(), clientCreateDto.address(),
+        return new Client(new Email(clientCreateDto.email().getEmail()), clientCreateDto.address(),
                 AccountType.CLIENT, clientCreateDto.password(),
                 clientCreateDto.phoneNumber(), clientCreateDto.firstName(),
                 clientCreateDto.lastName(), "not implemented yet",

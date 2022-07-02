@@ -11,6 +11,7 @@ import pl.uberek.ubereats.dish.Dish;
 import pl.uberek.ubereats.enums.AccountType;
 import pl.uberek.ubereats.enums.RestaurantType;
 import pl.uberek.ubereats.user.User;
+import pl.uberek.ubereats.user.value_objects.Email;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class Restaurant extends User {
     @JsonManagedReference
     private Set<Dish> dishes;
 
-    public Restaurant(String email, Address address, AccountType accountType, String password, String phoneNumber, String name, Double rating, RestaurantType restaurantType, Set<Dish> dishes) {
+    public Restaurant(Email email, Address address, AccountType accountType, String password, String phoneNumber, String name, Double rating, RestaurantType restaurantType, Set<Dish> dishes) {
         super(email, address, accountType, password, phoneNumber);
         this.name = name;
         this.rating = rating;

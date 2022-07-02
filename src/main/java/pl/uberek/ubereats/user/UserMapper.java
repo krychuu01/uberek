@@ -1,6 +1,8 @@
 package pl.uberek.ubereats.user;
 
 import org.springframework.stereotype.Component;
+import pl.uberek.ubereats.user.dtos.UserDto;
+import pl.uberek.ubereats.user.value_objects.Email;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 public class UserMapper {
 
     public UserDto fromUserToUserDto(User user){
-        return new UserDto(user.getEmail(), user.getAddress(), user.getAccountType(),
+        return new UserDto(new Email(user.getEmail().getEmail()), user.getAddress(), user.getAccountType(),
                 user.getPassword(), user.getPhoneNumber());
     }
     public List<UserDto> fromUserListToUserDtoList(List<User> users){

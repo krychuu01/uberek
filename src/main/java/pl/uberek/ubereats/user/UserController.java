@@ -3,9 +3,9 @@ package pl.uberek.ubereats.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import pl.uberek.ubereats.user.dtos.UserDto;
 
 import java.util.List;
 
@@ -28,8 +28,5 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getUsers(){
         return ResponseEntity.ok(userService.getUsers());
     }
-
-//    @PatchMapping("/users/{id}/emails")
-//    public ResponseEntity<? extends User>
 
 }
