@@ -51,12 +51,8 @@ public class ClientService {
     }
 
     public ClientAddressDto findClientAndHisAddress(Long id){
-        Query q = em.createQuery("SELECT new pl.uberek.ubereats.client.dtos.ClientAddressDto(c.firstName, c.lastName, a.city, a.street)" +
-                " FROM Client AS c " +
-                " INNER JOIN pl.uberek.ubereats.address.Address AS a ON c.address = a.id " +
-                " WHERE c.id = ?1 ");
-        q.setParameter(1, 1L);
-        return (ClientAddressDto) q.getSingleResult();
+        return clientRepository.getClientAndHisAddress(id)
+                .orElseThrow(() -> new NoSuchElementException("client with id: " + id + " not found"));
     }
 
     public void deleteClient(Long id) {
