@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import pl.uberek.ubereats.address.Address;
 import pl.uberek.ubereats.enums.AccountType;
 import pl.uberek.ubereats.user.value_objects.Email;
+import pl.uberek.ubereats.user.value_objects.PhoneNumber;
 
 import javax.persistence.*;
 
@@ -14,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Getter
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User {
 
@@ -30,9 +33,11 @@ public abstract class User {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
     private String password;
-    private String phoneNumber;
+    @Embedded
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "phoneNumber"))
+    private PhoneNumber phoneNumber;
 
-    public User(Email email, Address address, AccountType accountType, String password, String phoneNumber) {
+    public User(Email email, Address address, AccountType accountType, String password, PhoneNumber phoneNumber) {
         this.email = email;
         this.address = address;
         this.accountType = accountType;

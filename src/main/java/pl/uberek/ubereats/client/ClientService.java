@@ -9,24 +9,25 @@ import pl.uberek.ubereats.client.dtos.ClientDto;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static pl.uberek.ubereats.client.ClientMapper.fromClientListToClientDtoList;
+import static pl.uberek.ubereats.client.ClientMapper.fromClientToClientDto;
+
 @Component
 @Service
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;
 
     @Autowired
-    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper){
+    public ClientService(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
     }
 
     public ClientDto createClient(ClientCreateDto clientCreateDto) {
-        Client client = clientMapper.fromClientCreateDtoToClient(clientCreateDto);
+        Client client = ClientMapper.fromClientCreateDtoToClient(clientCreateDto);
         if(client.getAddress() == null) throw new NullPointerException("Address mustn't be null");
         clientRepository.save(client);
-        return clientMapper.fromClientToClientDto(client);
+        return fromClientToClientDto(client);
     }
 
     public Client findClientById(Long id){
@@ -36,17 +37,17 @@ public class ClientService {
 
     public ClientDto findById(Long id){
         Client client = findClientById(id);
-        return clientMapper.fromClientToClientDto(client);
+        return fromClientToClientDto(client);
     }
 
     public List<ClientDto> findAll() {
         List<Client> clients = clientRepository.findAll();
-        return clientMapper.fromClientListToClientDtoList(clients);
+        return fromClientListToClientDtoList(clients);
     }
 
     public List<ClientDto> findAllPremiumClients(){
         List<Client> clients = clientRepository.findByIsPremiumTrue();
-        return clientMapper.fromClientListToClientDtoList(clients);
+        return fromClientListToClientDtoList(clients);
     }
 
     public void deleteClient(Long id) {

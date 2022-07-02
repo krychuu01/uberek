@@ -1,13 +1,11 @@
 package pl.uberek.ubereats.client;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import pl.uberek.ubereats.address.Address;
 import pl.uberek.ubereats.enums.AccountType;
 import pl.uberek.ubereats.user.User;
 import pl.uberek.ubereats.user.value_objects.Email;
+import pl.uberek.ubereats.user.value_objects.PhoneNumber;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,7 +25,9 @@ public class Client extends User {
     private Boolean isPremium;
     private BigDecimal walletBalance;
 
-    public Client(Email email, Address address, AccountType accountType, String password, String phoneNumber, String firstName, String lastName, String cardNumber, Boolean isPremium, BigDecimal walletBalance) {
+    @Builder
+    public Client(Email email, Address address, AccountType accountType, String password, PhoneNumber phoneNumber,
+                  String firstName, String lastName, String cardNumber, Boolean isPremium, BigDecimal walletBalance) {
         super(email, address, accountType, password, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;

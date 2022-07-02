@@ -4,33 +4,40 @@ import org.springframework.stereotype.Component;
 import pl.uberek.ubereats.client.dtos.ClientCreateDto;
 import pl.uberek.ubereats.client.dtos.ClientDto;
 import pl.uberek.ubereats.enums.AccountType;
-import pl.uberek.ubereats.user.value_objects.Email;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ClientMapper {
 
-    public ClientDto fromClientToClientDto(Client client){
-        return new ClientDto(client.getFirstName(), client.getLastName(),
-                             client.getPhoneNumber(), client.getIsPremium(),
-                             client.getEmail(), client.getAddress());
+    public static ClientDto fromClientToClientDto(Client client){
+        return ClientDto.builder()
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .phoneNumber(client.getPhoneNumber())
+                .isPremium(client.getIsPremium())
+                .email(client.getEmail())
+                .build();
     }
 
-    public Client fromClientCreateDtoToClient(ClientCreateDto clientCreateDto){
-        return new Client(new Email(clientCreateDto.email().getEmail()), clientCreateDto.address(),
-                AccountType.CLIENT, clientCreateDto.password(),
-                clientCreateDto.phoneNumber(), clientCreateDto.firstName(),
-                clientCreateDto.lastName(), "not implemented yet",
-                clientCreateDto.isPremium(), BigDecimal.ZERO);
+    public static Client fromClientCreateDtoToClient(ClientCreateDto clientCreateDto){
+        return Client.builder()
+                .email(clientCreateDto.email())
+                .address(clientCreateDto.address())
+                .accountType(AccountType.CLIENT)
+                .password(clientCreateDto.password())
+                .phoneNumber(clientCreateDto.phoneNumber())
+                .firstName(clientCreateDto.firstName())
+                .lastName(clientCreateDto.lastName())
+                .isPremium(clientCreateDto.isPremium())
+                .build();
     }
 
-    public List<ClientDto> fromClientListToClientDtoList(List<Client> clients){
-        List<ClientDto> clientDtoList = new ArrayList<>(clients.size());
-        clients.forEach(client -> clientDtoList.add(fromClientToClientDto(client)));
-        return clientDtoList;
+    public static List<ClientDto> fromClientListToClientDtoList(List<Client> clients){
+        return clients.stream()
+                .map(ClientMapper::fromClientToClientDto)
+                .collect(Collectors.toList());
     }
 
 }

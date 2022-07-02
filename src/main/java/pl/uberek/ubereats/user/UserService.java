@@ -3,6 +3,7 @@ package pl.uberek.ubereats.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.uberek.ubereats.user.dtos.UserDto;
+import pl.uberek.ubereats.user.dtos.UserMapper;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,12 +12,10 @@ import java.util.NoSuchElementException;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
     public User findUserById(Long id){
@@ -26,12 +25,12 @@ public class UserService {
 
     public UserDto getUserById(Long id){
         User user = findUserById(id);
-        return userMapper.fromUserToUserDto(user);
+        return UserMapper.fromUserToUserDto(user);
     }
 
     public List<UserDto> getUsers() {
         List<User> users = userRepository.findAll();
-        return userMapper.fromUserListToUserDtoList(users);
+        return UserMapper.fromUserListToUserDtoList(users);
     }
 
 }

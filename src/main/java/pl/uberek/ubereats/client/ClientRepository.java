@@ -10,4 +10,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findByIsPremiumTrue();
 
+    //list Client with ip {ip} and his address
+
 }

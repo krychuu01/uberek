@@ -1,10 +1,13 @@
 package pl.uberek.ubereats.client.dtos;
 
-import pl.uberek.ubereats.address.Address;
+import lombok.Builder;
 import pl.uberek.ubereats.user.value_objects.Email;
+import pl.uberek.ubereats.user.value_objects.PhoneNumber;
 
 public record ClientDto(String firstName, String lastName,
-                        String phoneNumber, Boolean isPremium,
-                        Email email, Address address) {
+                        PhoneNumber phoneNumber, Boolean isPremium,
+                        Email email) {
+
+    @Builder public ClientDto {}
 
 }
