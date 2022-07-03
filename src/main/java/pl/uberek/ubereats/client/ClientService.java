@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static pl.uberek.ubereats.client.ClientMapper.*;
 
@@ -51,8 +52,10 @@ public class ClientService {
     }
 
     public ClientAddressDto findClientAndHisAddress(Long id){
-        return clientRepository.getClientAndHisAddress(id)
-                .orElseThrow(() -> new NoSuchElementException("client with id: " + id + " not found"));
+        var client = clientRepository.findFirstNameAndLastNameAndAddressById(id);
+
+        return client.map(ClientMapper::fromClientToClientAddressDto)
+                .orElseThrow( () -> new NoSuchElementException("client with id: " + id + " not found") );
     }
 
     public void deleteClient(Long id) {

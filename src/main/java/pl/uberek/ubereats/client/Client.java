@@ -7,7 +7,6 @@ import pl.uberek.ubereats.user.User;
 import pl.uberek.ubereats.user.value_objects.Email;
 import pl.uberek.ubereats.user.value_objects.PhoneNumber;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -35,6 +34,13 @@ public class Client extends User {
         this.cardNumber = cardNumber;
         this.isPremium = isPremium;
         this.walletBalance = walletBalance;
+    }
+
+    public Client (String firstName, String lastName, Address address){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        address.setCity(address.getCity());
+        address.setStreet(address.getStreet());
     }
 
 }
