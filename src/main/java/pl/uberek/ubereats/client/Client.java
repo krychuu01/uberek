@@ -36,13 +36,6 @@ public class Client extends User {
         this.walletBalance = walletBalance;
     }
 
-    public Client (String firstName, String lastName, Address address){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        address.setCity(address.getCity());
-        address.setStreet(address.getStreet());
-    }
-
 }
 
 

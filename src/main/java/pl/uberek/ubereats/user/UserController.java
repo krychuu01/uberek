@@ -28,4 +28,10 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @GetMapping("/page/{page_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> getUsersPage(@RequestParam(required = false) int page){
+        return userService.getUsersPage(page);
+    }
+
 }
