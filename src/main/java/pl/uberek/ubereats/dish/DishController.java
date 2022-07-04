@@ -1,12 +1,14 @@
 package pl.uberek.ubereats.dish;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/dishes")
 public class DishController {
 
     private final DishService dishService;
@@ -16,31 +18,35 @@ public class DishController {
         this.dishService = dishService;
     }
 
-    @GetMapping("/dishes")
-    public ResponseEntity<List<Dish>> findAll(){
-        return ResponseEntity.ok(dishService.findAll());
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Dish createDish(@RequestBody Dish dish){
+        return dishService.createDish(dish);
     }
 
-    @GetMapping("/dishes/{id}")
-    public ResponseEntity<Dish> findById(@PathVariable Long id){
-        return ResponseEntity.ok(dishService.findById(id));
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Dish> findAll(){
+        return dishService.findAll();
     }
 
-    @PostMapping("/dishes")
-    public ResponseEntity<Dish> createDish(@RequestBody Dish dish){
-        return ResponseEntity.ok(dishService.createDish(dish));
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Dish findById(@PathVariable Long id){
+        return dishService.findById(id);
     }
 
-    @PatchMapping("/dishes/{id}")
-    public ResponseEntity<Dish> updateDish(@PathVariable Long id, @RequestBody DishUpdateDto dish){
-        return ResponseEntity.ok(dishService.updateDish(id, dish));
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Dish updateDish(@PathVariable Long id, @RequestBody DishUpdateDto dish){
+        return dishService.updateDish(id, dish);
     }
 
-    @DeleteMapping("/dishes/{id}")
-    public ResponseEntity<String> deleteDish(@PathVariable Long id){
-        String deletedDishName = dishService.findById(id).getName();
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String deleteDish(@PathVariable Long id){
         dishService.deleteDish(id);
-        return ResponseEntity.ok().body("Dish " + deletedDishName + " deleted successfully");
+        return "Dish with id: " + id + " deleted successfully";
     }
 
 }

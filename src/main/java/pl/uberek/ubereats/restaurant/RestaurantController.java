@@ -1,8 +1,6 @@
 package pl.uberek.ubereats.restaurant;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +15,12 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Restaurant createRestaurant(@RequestBody Restaurant restaurant){
+        return restaurantService.save(restaurant);
+    }
+
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> getAllRestaurants(){
@@ -27,12 +31,6 @@ public class RestaurantController {
     @ResponseStatus(HttpStatus.OK)
     public Restaurant getById(@PathVariable Long id){
         return restaurantService.getById(id);
-    }
-
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant){
-        return restaurantService.save(restaurant);
     }
 
 }

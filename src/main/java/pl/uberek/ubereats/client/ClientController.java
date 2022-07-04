@@ -52,7 +52,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public String deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
         return "Client with id " + id + " successfully deleted";
