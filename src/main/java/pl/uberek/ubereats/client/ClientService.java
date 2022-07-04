@@ -66,4 +66,5 @@ public class ClientService {
         var client = findClientById(id);
         clientRepository.delete(client);
     }
+    
 }
