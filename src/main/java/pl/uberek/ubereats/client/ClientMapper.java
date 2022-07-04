@@ -35,6 +35,7 @@ public class ClientMapper {
 
     public static ClientAddressDto fromClientToClientAddressDto(Client client){
         return ClientAddressDto.builder()
+                .id(client.getId())
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
                 .city(client.getAddress().getCity())

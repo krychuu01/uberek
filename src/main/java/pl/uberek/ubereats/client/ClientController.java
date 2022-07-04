@@ -46,6 +46,12 @@ public class ClientController {
         return clientService.findClientAndHisAddress(id);
     }
 
+    @GetMapping("/with-address")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClientAddressDto> getClientsAndTheirAdresses(){
+        return clientService.findClientsAndTheirAdresses();
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String deleteClient(@PathVariable Long id){
